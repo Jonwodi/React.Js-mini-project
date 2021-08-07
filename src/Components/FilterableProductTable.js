@@ -5,8 +5,12 @@ import ProductTable from './ProductTable'
 export default function FilterableProductTable(props) {
   const { products } = props;
 
-  const [inStockOnly, setInStockOnly] = useState(false)
+  const [filterText, setFilterText] = useState('')
+  const handleFilterTextChange = (value) => {
+    setFilterText(value)
+  }
 
+  const [inStockOnly, setInStockOnly] = useState(false)
   const handleInStockChange = (value) => {
     setInStockOnly(value)
   }
@@ -14,14 +18,16 @@ export default function FilterableProductTable(props) {
   return (
     <div>
       <SearchBar
+        filterText={filterText}
+        onFilterTextChange={handleFilterTextChange}
         inStockOnly={inStockOnly}
         onInStockChange={handleInStockChange}
       />
       <ProductTable
         inStockOnly={inStockOnly}
         products={products}
+        filterText={filterText}
       />
     </div>
   )
 }
-
